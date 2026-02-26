@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Uncensored Record — A Course in Forgotten American History</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,300;1,8..60,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --paper: #f5f0e8;
+    --paper-dark: #ede6d6;
+    --cream: #faf7f2;
+    --accent: #b5361a;
+    --gold: #c9a84c;
+    --muted: #6b6055;
+    --border: #d4c9b8;
+    --serif: 'Playfair Display', Georgia, serif;
+    --body: 'Source Serif 4', Georgia, serif;
+    --mono: 'DM Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--paper); color: var(--ink); font-family: var(--body); font-size: 18px; line-height: 1.7; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E"); pointer-events: none; z-index: 1000; opacity: 0.4; }
+
+  /* NAV */
+  .topbar { background: var(--ink); color: var(--paper); padding: 10px 0; text-align: center; font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; }
+  nav { background: var(--cream); border-bottom: 2px solid var(--ink); padding: 0 48px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 100; }
+  .nav-logo { font-family: var(--serif); font-weight: 900; font-size: 22px; color: var(--ink); padding: 16px 0; letter-spacing: -0.02em; }
+  .nav-logo span { color: var(--accent); }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a { font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink); text-decoration: none; padding: 4px 0; border-bottom: 2px solid transparent; transition: border-color 0.2s, color 0.2s; }
+  .nav-links a:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* HERO */
+  .hero { min-height: 92vh; display: grid; grid-template-columns: 1fr 1fr; border-bottom: 2px solid var(--ink); opacity: 0; animation: fadeUp 1s ease forwards 0.2s; }
+  .hero-left { padding: 80px 64px; border-right: 2px solid var(--ink); display: flex; flex-direction: column; justify-content: center; background: var(--cream); }
+  .hero-eyebrow { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 24px; }
+  .hero-title { font-family: var(--serif); font-size: clamp(48px, 6vw, 80px); font-weight: 900; line-height: 1.0; letter-spacing: -0.03em; margin-bottom: 32px; }
+  .hero-title em { font-style: italic; color: var(--accent); }
+  .hero-sub { font-size: 19px; color: var(--muted); max-width: 480px; line-height: 1.65; margin-bottom: 48px; font-weight: 300; }
+  .hero-cta { display: inline-flex; align-items: center; gap: 12px; background: var(--ink); color: var(--paper); padding: 16px 32px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; text-decoration: none; border: 2px solid var(--ink); cursor: pointer; transition: background 0.2s, transform 0.2s; }
+  .hero-cta:hover { background: var(--accent); border-color: var(--accent); transform: translateY(-2px); }
+  .hero-cta-arrow { font-size: 16px; transition: transform 0.2s; }
+  .hero-cta:hover .hero-cta-arrow { transform: translateX(4px); }
+  .hero-right { background: var(--ink); display: flex; flex-direction: column; justify-content: flex-end; padding: 64px; position: relative; overflow: hidden; }
+  .hero-right::before { content: '"'; font-family: var(--serif); font-size: 600px; color: rgba(255,255,255,0.03); position: absolute; top: -100px; left: -40px; line-height: 1; pointer-events: none; }
+  .hero-quote { font-family: var(--serif); font-style: italic; font-size: 28px; color: var(--paper); line-height: 1.4; margin-bottom: 24px; position: relative; z-index: 1; }
+  .hero-quote-attr { font-family: var(--mono); font-size: 11px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); }
+  .hero-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 2px; margin-top: 48px; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 32px; position: relative; z-index: 1; }
+  .stat { padding: 16px 0; }
+  .stat-num { font-family: var(--serif); font-size: 40px; font-weight: 900; color: var(--paper); line-height: 1; }
+  .stat-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-top: 4px; }
+
+  /* SHARED */
+  section { padding: 96px 0; }
+  .container { max-width: 1200px; margin: 0 auto; padding: 0 48px; }
+  .section-label { font-family: var(--mono); font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; }
+  .section-label::before { content: ''; display: inline-block; width: 32px; height: 2px; background: var(--accent); }
+  .section-title { font-family: var(--serif); font-size: clamp(32px, 4vw, 52px); font-weight: 700; letter-spacing: -0.02em; line-height: 1.1; margin-bottom: 24px; }
+  .section-body { font-size: 18px; color: var(--muted); max-width: 620px; line-height: 1.75; }
+
+  /* JOURNAL */
+  #journal { background: var(--cream); border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+  .journal-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 64px; border: 2px solid var(--ink); }
+  .journal-card { padding: 48px; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .journal-card.visible { opacity: 1; transform: translateY(0); }
+  .journal-card:nth-child(even) { border-right: none; }
+  .journal-card:nth-child(3), .journal-card:nth-child(4) { border-bottom: none; }
+  .journal-icon { font-size: 36px; margin-bottom: 20px; display: block; }
+  .journal-card-type { font-family: var(--mono); font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+  .journal-card-title { font-family: var(--serif); font-size: 24px; font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+  .journal-card-body { font-size: 16px; color: var(--muted); line-height: 1.7; }
+  .journal-card-quote { margin-top: 20px; padding: 16px 20px; background: var(--paper-dark); border-left: 3px solid var(--gold); font-style: italic; font-size: 15px; color: var(--ink); line-height: 1.6; }
+  .journal-card-quote cite { display: block; margin-top: 8px; font-style: normal; font-family: var(--mono); font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+
+  /* MODULES */
+  #modules { background: var(--paper); }
+  .modules-header { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; margin-bottom: 64px; padding-bottom: 64px; border-bottom: 1px solid var(--border); }
+  .module { border: 2px solid var(--ink); margin-bottom: -2px; cursor: pointer; opacity: 0; transform: translateX(-20px); transition: opacity 0.5s ease, transform 0.5s ease; }
+  .module.visible { opacity: 1; transform: translateX(0); }
+  .module-header { padding: 28px 36px; display: flex; align-items: center; gap: 24px; user-select: none; transition: background 0.2s; }
+  .module:hover .module-header { background: var(--paper-dark); }
+  .module-num { font-family: var(--serif); font-size: 48px; font-weight: 900; color: var(--border); line-height: 1; min-width: 60px; transition: color 0.2s; }
+  .module:hover .module-num, .module.open .module-num { color: var(--accent); }
+  .module-info { flex: 1; }
+  .module-tag { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .module-title { font-family: var(--serif); font-size: 22px; font-weight: 700; line-height: 1.2; }
+  .module-toggle { width: 32px; height: 32px; border: 2px solid var(--ink); display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 300; transition: transform 0.3s, background 0.2s, color 0.2s; flex-shrink: 0; }
+  .module.open .module-toggle { transform: rotate(45deg); background: var(--ink); color: var(--paper); }
+  .module-body { max-height: 0; overflow: hidden; transition: max-height 0.6s ease; }
+  .module.open .module-body { max-height: 2600px; }
+  .module-content { padding: 28px 36px 36px 120px; border-top: 1px solid var(--border); }
+  .module-content p { font-size: 17px; color: var(--muted); line-height: 1.75; margin-bottom: 20px; }
+  .module-content p strong { color: var(--ink); }
+  .module-content h4 { font-family: var(--serif); font-size: 18px; font-weight: 700; margin: 28px 0 12px; color: var(--ink); }
+  .lesson-list { list-style: none; display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px; }
+  .lesson-list li { display: flex; align-items: flex-start; gap: 14px; font-size: 15px; color: var(--muted); }
+  .lesson-list li::before { content: '→'; color: var(--accent); font-size: 14px; margin-top: 2px; flex-shrink: 0; }
+  .source-note { font-family: var(--mono); font-size: 11px; color: var(--border); letter-spacing: 0.05em; margin-top: -12px; margin-bottom: 20px; }
+  .source-note a { color: var(--gold); text-decoration: none; }
+  .source-note a:hover { text-decoration: underline; }
+
+  /* QUIZ */
+  .quiz-block { background: var(--ink); color: var(--paper); padding: 36px; margin: 32px 0 0; }
+  .quiz-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 16px; }
+  .quiz-question { font-family: var(--serif); font-size: 20px; font-weight: 700; color: var(--paper); margin-bottom: 20px; line-height: 1.3; }
+  .quiz-options { display: flex; flex-direction: column; gap: 10px; }
+  .quiz-option { background: transparent; border: 1px solid rgba(255,255,255,0.2); color: rgba(255,255,255,0.8); padding: 12px 18px; font-family: var(--body); font-size: 15px; text-align: left; cursor: pointer; transition: background 0.2s, border-color 0.2s; }
+  .quiz-option:hover:not(:disabled) { background: rgba(255,255,255,0.07); border-color: rgba(255,255,255,0.5); }
+  .quiz-option.correct { background: rgba(100,180,100,0.25); border-color: #6db56d; color: #a8e6a8; }
+  .quiz-option.incorrect { background: rgba(200,80,60,0.25); border-color: #c85040; color: #f0a0a0; }
+  .quiz-option.reveal { background: rgba(100,180,100,0.15); border-color: #6db56d; color: rgba(255,255,255,0.6); }
+  .quiz-feedback { margin-top: 16px; padding: 14px 18px; font-size: 15px; line-height: 1.6; display: none; border-left: 3px solid var(--gold); color: rgba(255,255,255,0.75); font-style: italic; }
+  .quiz-feedback.show { display: block; }
+
+  /* DATA */
+  #data { background: var(--ink); color: var(--paper); border-top: 2px solid var(--ink); }
+  #data .section-label { color: var(--gold); }
+  #data .section-label::before { background: var(--gold); }
+  #data .section-title { color: var(--paper); }
+  #data .section-body { color: rgba(255,255,255,0.55); }
+  .data-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 64px; border: 1px solid rgba(255,255,255,0.15); }
+  .data-card { padding: 48px 40px; border-right: 1px solid rgba(255,255,255,0.15); position: relative; overflow: hidden; opacity: 0; transform: translateY(20px); transition: opacity 0.6s ease, transform 0.6s ease; }
+  .data-card.visible { opacity: 1; transform: translateY(0); }
+  .data-card:last-child { border-right: none; }
+  .data-card::before { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 3px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; }
+  .data-card:hover::before { transform: scaleX(1); }
+  .data-pct { font-family: var(--serif); font-size: 72px; font-weight: 900; line-height: 1; color: var(--paper); letter-spacing: -0.04em; }
+  .data-pct span { color: var(--accent); }
+  .data-desc { font-size: 16px; color: rgba(255,255,255,0.55); line-height: 1.65; margin-top: 16px; }
+  .data-bar-wrapper { margin-top: 20px; height: 3px; background: rgba(255,255,255,0.1); overflow: hidden; }
+  .data-bar { height: 100%; background: var(--accent); width: 0; transition: width 1.2s ease 0.5s; }
+  .data-card.visible .data-bar { width: var(--pct); }
+
+  /* EVENTS */
+  #events { background: var(--cream); border-top: 2px solid var(--ink); }
+  .events-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0; margin-top: 64px; border: 2px solid var(--ink); }
+  .event-card { padding: 48px; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); overflow: hidden; cursor: default; opacity: 0; transform: translateY(16px); transition: opacity 0.5s ease, transform 0.5s ease, background 0.3s; }
+  .event-card.visible { opacity: 1; transform: translateY(0); }
+  .event-card:nth-child(2n) { border-right: none; }
+  .event-card:nth-last-child(-n+2) { border-bottom: none; }
+  .event-card:hover { background: var(--paper-dark); }
+  .event-year { font-family: var(--mono); font-size: 12px; letter-spacing: 0.15em; color: var(--accent); margin-bottom: 12px; }
+  .event-name { font-family: var(--serif); font-size: 26px; font-weight: 700; margin-bottom: 16px; line-height: 1.2; }
+  .event-desc { font-size: 16px; color: var(--muted); line-height: 1.7; margin-bottom: 20px; }
+  .event-why { background: var(--ink); color: var(--paper); padding: 16px 20px; font-size: 14px; line-height: 1.6; }
+  .event-why strong { font-family: var(--mono); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); display: block; margin-bottom: 6px; }
+
+  /* RESEARCH TEASER */
+  #research-teaser { background: var(--paper-dark); border-top: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+  .teaser-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+  .teaser-text p { font-size: 18px; color: var(--muted); line-height: 1.8; margin-bottom: 20px; }
+  .teaser-pull { font-family: var(--serif); font-size: clamp(20px, 2.5vw, 28px); font-style: italic; line-height: 1.4; color: var(--ink); border-left: 4px solid var(--accent); padding-left: 28px; margin-bottom: 32px; }
+  .pdf-download { display: inline-flex; align-items: center; gap: 12px; border: 2px solid var(--ink); color: var(--ink); padding: 14px 28px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; text-decoration: none; transition: background 0.2s, color 0.2s; }
+  .pdf-download:hover { background: var(--ink); color: var(--paper); }
+  .teaser-aside { background: var(--ink); color: var(--paper); padding: 48px; }
+  .teaser-aside-label { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .teaser-aside-title { font-family: var(--serif); font-size: 26px; font-weight: 700; color: var(--paper); margin-bottom: 20px; line-height: 1.2; }
+  .teaser-aside p { font-size: 15px; color: rgba(255,255,255,0.6); line-height: 1.7; margin-bottom: 16px; }
+  .scholar-list { list-style: none; margin-top: 16px; display: flex; flex-direction: column; gap: 8px; }
+  .scholar-list li { font-family: var(--mono); font-size: 11px; color: rgba(255,255,255,0.4); letter-spacing: 0.05em; padding-left: 14px; position: relative; }
+  .scholar-list li::before { content: '·'; position: absolute; left: 0; color: var(--gold); }
+
+  /* WORKS CITED */
+  #works-cited { background: var(--paper); border-top: 2px solid var(--ink); }
+  .works-cited-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; margin-top: 48px; border: 2px solid var(--ink); }
+  .citation-section { padding: 40px; border-right: 2px solid var(--ink); border-bottom: 2px solid var(--ink); }
+  .citation-section:nth-child(even) { border-right: none; }
+  .citation-section:nth-last-child(-n+2) { border-bottom: none; }
+  .citation-section-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--accent); margin-bottom: 20px; }
+  .citation-list { list-style: none; display: flex; flex-direction: column; gap: 16px; }
+  .citation-list li { font-size: 14px; color: var(--muted); line-height: 1.65; padding-left: 24px; position: relative; }
+  .citation-list li::before { content: ''; position: absolute; left: 0; top: 10px; width: 12px; height: 1px; background: var(--border); }
+  .citation-list a { color: var(--accent); text-decoration: none; word-break: break-all; }
+  .citation-list a:hover { text-decoration: underline; }
+
+  /* FOOTER */
+  footer { background: var(--ink); color: var(--paper); border-top: 4px solid var(--accent); padding: 64px 0; }
+  .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr; gap: 64px; padding-bottom: 48px; border-bottom: 1px solid rgba(255,255,255,0.1); margin-bottom: 32px; }
+  .footer-brand { font-family: var(--serif); font-size: 28px; font-weight: 900; margin-bottom: 16px; }
+  .footer-brand span { color: var(--accent); }
+  .footer-blurb { font-size: 15px; color: rgba(255,255,255,0.5); line-height: 1.7; max-width: 340px; }
+  .footer-col-title { font-family: var(--mono); font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: var(--gold); margin-bottom: 20px; }
+  .footer-links { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+  .footer-links a { color: rgba(255,255,255,0.55); text-decoration: none; font-size: 15px; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--paper); }
+  .footer-bottom { display: flex; justify-content: space-between; align-items: center; font-family: var(--mono); font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.3); }
+
+  .progress-bar { position: fixed; top: 0; left: 0; height: 3px; background: var(--accent); z-index: 9999; width: 0; transition: width 0.1s linear; }
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(32px); } to { opacity: 1; transform: translateY(0); } }
+
+  @media (max-width: 900px) {
+    .hero, .modules-header, .teaser-layout, .journal-grid, .works-cited-grid, .footer-grid { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .data-cards, .events-grid { grid-template-columns: 1fr; }
+    .data-card, .event-card { border-right: none !important; }
+    .citation-section { border-right: none !important; }
+    nav { padding: 0 24px; }
+    .container { padding: 0 24px; }
+    .hero-left { padding: 48px 24px; }
+    .nav-links { display: none; }
+    .module-content { padding-left: 36px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="progress-bar" id="progress"></div>
+<div class="topbar">An Educational Initiative by Emory Williams · Based on Original Research · Georgia, 2024</div>
+
+<nav>
+  <div class="nav-logo">The <span>Uncensored</span> Record</div>
+  <ul class="nav-links">
+    <li><a href="#journal">The Research</a></li>
+    <li><a href="#modules">Course Modules</a></li>
+    <li><a href="#data">By the Numbers</a></li>
+    <li><a href="#events">Quick Reference</a></li>
+    <li><a href="#research-teaser">Full Paper</a></li>
+    <li><a href="#works-cited">Works Cited</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero" id="home">
+  <div class="hero-left">
+    <p class="hero-eyebrow">An Online Course in American History</p>
+    <h1 class="hero-title">What Your<br>Textbook<br><em>Left Out</em></h1>
+    <p class="hero-sub">A research-grounded course illuminating forgotten chapters of American history. The foreign interventions, the silenced uprisings, the inconvenient truths, and what their absence costs a democracy.</p>
+    <a href="#modules" class="hero-cta">Begin the Course <span class="hero-cta-arrow">→</span></a>
+  </div>
+  <div class="hero-right">
+    <blockquote class="hero-quote">"Those who cannot remember the past are condemned to repeat it."</blockquote>
+    <p class="hero-quote-attr">— George Santayana, The Life of Reason, 1905</p>
+    <div class="hero-stats">
+      <div class="stat">
+        <div class="stat-num">76%</div>
+        <div class="stat-label">of 103 students surveyed believe censorship altered their curriculum</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">83%</div>
+        <div class="stat-label">said broader history would deepen their civic understanding</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">53%</div>
+        <div class="stat-label">reported increased civic awareness after exposure to forgotten history</div>
+      </div>
+      <div class="stat">
+        <div class="stat-num">3</div>
+        <div class="stat-label">Georgia laws passed since 2022 restricting curriculum content</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- JOURNAL -->
+<section id="journal">
+  <div class="container">
+    <p class="section-label">Researcher's Journal</p>
+    <h2 class="section-title">The Story Behind This Course</h2>
+    <p class="section-body">This course did not begin in a library. It began with a feeling: a creeping suspicion that the history being taught in Georgia classrooms was shaped by forces students could not see. Here is how that intuition became a research project.</p>
+    <div class="journal-grid">
+
+      <div class="journal-card">
+        <span class="journal-icon">💡</span>
+        <p class="journal-card-type">Inspiration</p>
+        <h3 class="journal-card-title">The Question That Started Everything</h3>
+        <p class="journal-card-body">The spark came from a simple classroom observation: students could recite the dates of World War II battles but had never heard of the 19-year U.S. occupation of Haiti. Why did some histories get told, and others simply vanish? That question became the foundation of this research.</p>
+        <div class="journal-card-quote">
+          "The antidote to feel-good history is not feel-bad history but honest and inclusive history."
+          <cite>— James W. Loewen, Lies My Teacher Told Me (1995)</cite>
+        </div>
+      </div>
+
+      <div class="journal-card">
+        <span class="journal-icon">🔍</span>
+        <p class="journal-card-type">'Aha' Moment</p>
+        <h3 class="journal-card-title">When the Data Confirmed the Feeling</h3>
+        <p class="journal-card-body">Surveying 103 students at a Georgia high school, the numbers were striking. Only 22 of those students had ever been taught about the U.S. overthrow of Allende in Chile. The silence was not random. Events that implicated American power tended to disappear from the historical record entirely.</p>
+        <div class="journal-card-quote">
+          "The omission is not an accident. It is a curriculum choice, and that choice has consequences for how students understand democracy."
+          <cite>— Emory Williams, researcher</cite>
+        </div>
+      </div>
+
+      <div class="journal-card">
+        <span class="journal-icon">⚡</span>
+        <p class="journal-card-type">Unexpected Finding</p>
+        <h3 class="journal-card-title">Students Want More, Not Less</h3>
+        <p class="journal-card-body">The assumption behind censorship laws is that students need protection from difficult history. The data said the opposite. 83% of the 103 students surveyed actively wanted a more comprehensive curriculum. The students most affected by these restrictions were, through their own survey responses, arguing against them.</p>
+        <div class="journal-card-quote">
+          "If the students most affected are calling for greater complexity, whose interests are these policies actually serving?"
+          <cite>— Emory Williams, researcher</cite>
+        </div>
+      </div>
+
+      <div class="journal-card">
+        <span class="journal-icon">🗺️</span>
+        <p class="journal-card-type">The Larger Pattern</p>
+        <h3 class="journal-card-title">History Has Seen This Before</h3>
+        <p class="journal-card-body">Digging into historical precedent revealed a sobering pattern. The Ming Dynasty, the Roman Empire, Nazi Germany: all enforced educational censorship, and all collapsed. The research shifted from a local study of Georgia into a much larger argument about the relationship between honest history and democratic stability.</p>
+        <div class="journal-card-quote">
+          "History is important. More than any other topic, it is about us. Whether one deems our present society wondrous or awful or both, history reveals how we got to this point."
+          <cite>— James W. Loewen, Lies My Teacher Told Me (1995)</cite>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- MODULES -->
+<section id="modules">
+  <div class="container">
+    <div class="modules-header">
+      <div>
+        <p class="section-label">Course Curriculum</p>
+        <h2 class="section-title">Six Modules.<br>Six Erasures.</h2>
+      </div>
+      <div>
+        <p class="section-body">Each module examines a chapter of American history that has been systematically underrepresented in K-12 curricula. Content is sourced to government archives, academic institutions, and reputable historical organizations. Each module closes with a comprehension check on the historical event itself.</p>
+        <p style="margin-top: 20px; font-family: var(--mono); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted);">Click any module to expand</p>
+      </div>
+    </div>
+
+    <!-- MODULE 01 -->
+    <div class="module" onclick="toggleModule(this, event)">
+      <div class="module-header">
+        <div class="module-num">01</div>
+        <div class="module-info">
+          <p class="module-tag">Foreign Policy · 1899–1902</p>
+          <h3 class="module-title">The Philippine-American War: America's First Imperial Project</h3>
+        </div>
+        <div class="module-toggle">+</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <p>Following the Spanish-American War of 1898, Spain ceded the Philippines to the United States under the Treaty of Paris for $20 million. When it became clear that U.S. forces intended to impose colonial control rather than grant independence, Filipino nationalists under Emilio Aguinaldo launched a war of resistance. The conflict lasted three years and resulted in the deaths of over 4,200 American soldiers and at least 20,000 Filipino combatants. As many as 200,000 Filipino civilians died from violence, famine, and disease. <strong>Only 46 of the 103 students surveyed had ever encountered this history in school.</strong></p>
+          <p class="source-note">Source: <a href="https://history.state.gov/milestones/1899-1913/war" target="_blank">U.S. Office of the Historian, history.state.gov</a></p>
+
+          <h4>What Actually Happened</h4>
+          <p>The war unfolded in two phases. The first was a conventional military campaign. The second, beginning in late 1899, saw Filipino forces shift to guerrilla tactics. The United States responded with brutal counterinsurgency methods, including the torture of prisoners and the killing of civilians in suspected insurgent villages. American commanders publicly acknowledged using water torture. U.S. forces burned villages and forced entire populations into "reconcentration zones." The Balangiga massacre of 1901, in which Filipino fighters killed American soldiers during church bells, prompted a U.S. general to order that anyone capable of carrying a weapon be killed, effectively approving mass civilian killing.</p>
+
+          <h4>Why It Was Omitted</h4>
+          <p>This war directly contradicts the self-image America has built around its foreign policy as a liberating, anti-colonial force. Teaching it would require students to reckon with the fact that the United States, at the very moment it was celebrating its democratic ideals abroad, was engaged in a violent colonial occupation. That tension is exactly what censorship works to prevent.</p>
+
+          <h4>Key Topics in This Module</h4>
+          <ul class="lesson-list">
+            <li>The Treaty of Paris (1898) and how the Philippines passed from Spain to U.S. control for $20 million</li>
+            <li>Emilio Aguinaldo and the Filipino Republic's declaration of independence</li>
+            <li>Two phases of the war: conventional combat and guerrilla resistance</li>
+            <li>American atrocities: the water cure, reconcentration zones, and the Balangiga aftermath</li>
+            <li>Civilian death toll of up to 200,000 and how official records minimized it</li>
+            <li>The gap between democratic rhetoric and colonial action as a recurring American pattern</li>
+          </ul>
+
+          <div class="quiz-block">
+            <p class="quiz-label">Module Check</p>
+            <p class="quiz-question">What was the immediate cause of the Philippine-American War breaking out in February 1899?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">A. Filipino forces attacked the U.S. naval base at Manila Bay</button>
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">B. Spain refused to honor the terms of the Treaty of Paris</button>
+              <button class="quiz-option" onclick="answerQuiz(this, true, event)">C. Filipino nationalists who sought independence fought back when U.S. forces made clear they intended colonial control</button>
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">D. The U.S. Congress voted to deny Philippine statehood</button>
+            </div>
+            <div class="quiz-feedback">Correct. Just two days before the U.S. Senate ratified the Treaty of Paris, fighting broke out between American forces and Filipino nationalists led by Emilio Aguinaldo, who sought independence rather than a change in colonial rulers. The United States had purchased the Philippines from Spain without consulting the Filipino people.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 02 -->
+    <div class="module" onclick="toggleModule(this, event)">
+      <div class="module-header">
+        <div class="module-num">02</div>
+        <div class="module-info">
+          <p class="module-tag">Foreign Policy · 1915–1934</p>
+          <h3 class="module-title">The U.S. Occupation of Haiti: Democracy Suspended</h3>
+        </div>
+        <div class="module-toggle">+</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <p>Following the assassination of the Haitian president in July 1915, President Woodrow Wilson sent U.S. Marines into Haiti, beginning a 19-year military occupation. The United States took control of Haitian finances, forced the election of a pro-American president, dismantled the Haitian legislature, and in 1917 imposed a new constitution that allowed foreign land ownership, reversing a prohibition dating back to the Haitian Revolution. Haiti is the second-oldest republic in the Western Hemisphere and the world's first Black republic. <strong>Only 50 of the 103 students surveyed had ever heard of this occupation.</strong></p>
+          <p class="source-note">Source: <a href="https://history.state.gov/milestones/1914-1920/haiti" target="_blank">U.S. Office of the Historian, history.state.gov</a></p>
+
+          <h4>What Actually Happened</h4>
+          <p>The occupation introduced the corvée labor system, requiring Haitian civilians to perform forced labor on road construction and public works projects under Marine enforcement. Haitian resistance, led by the Caco fighters, was suppressed militarily. The U.S. also established the Haitian Gendarmerie, a military force controlled by American officers. Between 1911 and 1915, seven Haitian presidents had been assassinated or overthrown, increasing U.S. anxieties about foreign influence. In actuality, the occupation protected U.S. financial assets in the country and prevented a possible German presence in the Caribbean.</p>
+
+          <h4>Why It Was Omitted</h4>
+          <p>The occupation exposes the racial logic underlying American imperialism. Haiti represented something that threatened the racial order the United States was built on: a Black nation that had defeated a European colonial power and governed itself. Teaching this occupation requires asking uncomfortable questions about who American democracy was designed to protect.</p>
+
+          <h4>Key Topics in This Module</h4>
+          <ul class="lesson-list">
+            <li>Haiti's revolutionary history as the world's first Black republic (1804) and the U.S. response to its existence</li>
+            <li>The 1914 removal of $500,000 from the Haitian National Bank to New York by U.S. Marines</li>
+            <li>The 1917 constitution, foreign land ownership, and the erasure of Haitian sovereignty</li>
+            <li>The corvée forced labor system enforced by U.S. Marines</li>
+            <li>Haitian resistance: the Caco Wars and the suppression of Charlemagne Péralte</li>
+            <li>Long-term consequences for Haitian governance and economic sovereignty</li>
+          </ul>
+
+          <div class="quiz-block">
+            <p class="quiz-label">Module Check</p>
+            <p class="quiz-question">What did the U.S.-imposed 1917 Haitian constitution change that was considered especially significant by Haitians?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">A. It abolished the Haitian military entirely</button>
+              <button class="quiz-option" onclick="answerQuiz(this, true, event)">B. It allowed foreign land ownership, reversing a prohibition that had existed since the Haitian Revolution</button>
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">C. It established English as an official language alongside French and Creole</button>
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">D. It gave the U.S. president authority to appoint Haitian cabinet ministers</button>
+            </div>
+            <div class="quiz-feedback">Correct. Since the Haitian Revolution, foreign land ownership had been banned as a protection against the reintroduction of colonial control. The Wilson administration used a new constitution to reverse this, opening Haitian land to foreign investors. Many Haitians saw this as a direct attack on the meaning of their independence.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 03 -->
+    <div class="module" onclick="toggleModule(this, event)">
+      <div class="module-header">
+        <div class="module-num">03</div>
+        <div class="module-info">
+          <p class="module-tag">Cold War · 1954</p>
+          <h3 class="module-title">Operation PBSUCCESS: The CIA Overthrow of Guatemalan Democracy</h3>
+        </div>
+        <div class="module-toggle">+</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <p>In August 1953, the Operations Coordinating Board directed the CIA to assume primary responsibility for operations against the elected Guatemalan government of President Jacobo Árbenz Guzmán. Operation PBSUCCESS, as it was officially designated, involved cutting off military aid to Guatemala, economic pressure, psychological warfare, and paramilitary action. On June 27, 1954, Árbenz resigned. A CIA-backed military junta took power. What followed were decades of military dictatorship, genocide against Indigenous Mayan populations, and a civil war that killed an estimated 200,000 people. <strong>Only 44 of the 103 students surveyed had studied this intervention.</strong></p>
+          <p class="source-note">Source: <a href="https://history.state.gov/historicaldocuments/frus1952-54Guat/sources" target="_blank">U.S. Office of the Historian, Foreign Relations of the United States, 1952–1954, Guatemala, history.state.gov</a></p>
+
+          <h4>What Actually Happened</h4>
+          <p>Árbenz's land reform program threatened the United Fruit Company, which held enormous landholdings in Guatemala and had significant connections to the Eisenhower administration. CIA Director Allen Dulles and Secretary of State John Foster Dulles both had prior ties to United Fruit. Declassified CIA documents confirm that the agency ran a clandestine radio station, funded opposition groups, and coordinated air operations, including strafing missions, to undermine the government. The Cold War framing of Árbenz as a communist threat was used to justify what was fundamentally a corporate interest operation.</p>
+
+          <h4>Why It Was Omitted</h4>
+          <p>Guatemala makes visible something the standard curriculum works hard to obscure: that Cold War ideology was frequently used as cover for protecting corporate interests, not democratic ones. Teaching it honestly requires explaining that a banana company's lobbying directly resulted in the destruction of a democracy and the deaths of hundreds of thousands of people.</p>
+
+          <h4>Key Topics in This Module</h4>
+          <ul class="lesson-list">
+            <li>Árbenz's land reform and the United Fruit Company's political influence in Guatemala and Washington</li>
+            <li>Allen Dulles (CIA) and John Foster Dulles (State Dept.) and their ties to United Fruit</li>
+            <li>Declassified PBSUCCESS documents: radio warfare, paramilitary operations, air strikes</li>
+            <li>The fall of Árbenz on June 27, 1954, and the installation of a military junta</li>
+            <li>Decades of U.S.-backed military rule, the Guatemalan genocide, and Operation Condor</li>
+            <li>How corporate lobbying can shape the foreign policy of a democratic government</li>
+          </ul>
+
+          <div class="quiz-block">
+            <p class="quiz-label">Module Check</p>
+            <p class="quiz-question">What was the name of the CIA operation that overthrew Guatemalan President Jacobo Árbenz in 1954?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">A. Operation MONGOOSE</button>
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">B. Operation CONDOR</button>
+              <button class="quiz-option" onclick="answerQuiz(this, true, event)">C. Operation PBSUCCESS</button>
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">D. Operation ZAPATA</button>
+            </div>
+            <div class="quiz-feedback">Correct. Operation PBSUCCESS was officially authorized in August 1953. Declassified CIA documents, now published by the U.S. Office of the Historian, detail the full range of operations including propaganda, economic disruption, and paramilitary actions that led to Árbenz's resignation in June 1954.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 04 -->
+    <div class="module" onclick="toggleModule(this, event)">
+      <div class="module-header">
+        <div class="module-num">04</div>
+        <div class="module-info">
+          <p class="module-tag">Cold War · 1973</p>
+          <h3 class="module-title">Chile and the Fall of Allende: When America Chose Dictatorship</h3>
+        </div>
+        <div class="module-toggle">+</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <p>On September 11, 1973, the Chilean military, with U.S. support, bombed the presidential palace and overthrew Salvador Allende, the world's first democratically elected Marxist head of state. Allende died in the final hours of the coup. On September 13, General Augusto Pinochet was named president. He dismantled Congress, outlawed left-wing political parties, and oversaw the torture and forced disappearance of thousands of political opponents. The coup ended 46 years of democratic rule in Chile. <strong>This was the least-taught event in the entire survey: only 22 of 103 students had ever encountered it.</strong></p>
+          <p class="source-note">Source: <a href="https://history.state.gov/milestones/1969-1976/allende" target="_blank">U.S. Office of the Historian, "The Allende Years and the Pinochet Coup," history.state.gov</a></p>
+
+          <h4>What Actually Happened</h4>
+          <p>The United States had a long history of covert action in Chile before the coup. The Nixon administration funded opposition candidates, ran anti-Allende propaganda campaigns, and actively discussed supporting a military coup as early as 1970. Declassified documents show the U.S. had considered a plan called Track II, a covert action meant to organize a coup before Allende could be inaugurated. A Senate committee convened in 1975 concluded the United States had carried out extensive covert operations in Chile during these years. Nixon's directive to make the Chilean economy "scream" was an instruction to deliberately destabilize a functioning democracy.</p>
+
+          <h4>Why It Was Omitted</h4>
+          <p>Chile is among the most direct examples in American history of the United States destroying the very thing it claimed to be defending. There is no honest version of this story that does not require students to sit with that contradiction, which is precisely why it tends to disappear from curricula.</p>
+
+          <h4>Key Topics in This Module</h4>
+          <ul class="lesson-list">
+            <li>Allende's 1970 election and the Nixon administration's immediate response: "make the economy scream"</li>
+            <li>Track I and Track II: covert U.S. plans to prevent Allende from taking office</li>
+            <li>The assassination of Chilean General René Schneider during a U.S.-connected kidnap plot in 1970</li>
+            <li>September 11, 1973: the bombing of La Moneda palace and the death of Allende</li>
+            <li>Pinochet's DINA secret police, torture, forced disappearances, and Operation Condor</li>
+            <li>The 1975 U.S. Senate investigation and what declassified documents confirmed</li>
+          </ul>
+
+          <div class="quiz-block">
+            <p class="quiz-label">Module Check</p>
+            <p class="quiz-question">How many years of continuous democratic rule in Chile did the 1973 coup bring to an end?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">A. 12 years</button>
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">B. 27 years</button>
+              <button class="quiz-option" onclick="answerQuiz(this, true, event)">C. 46 years</button>
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">D. 63 years</button>
+            </div>
+            <div class="quiz-feedback">Correct. According to the U.S. Office of the Historian, the takeover of the government ended a 46-year history of democratic rule in Chile. This fact alone makes the coup one of the most significant Cold War events for understanding American foreign policy, and one of the most conspicuously absent from standard U.S. history curricula.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 05 -->
+    <div class="module" onclick="toggleModule(this, event)">
+      <div class="module-header">
+        <div class="module-num">05</div>
+        <div class="module-info">
+          <p class="module-tag">Domestic History · 1921</p>
+          <h3 class="module-title">The Tulsa Race Massacre: The Destruction of Black Wall Street</h3>
+        </div>
+        <div class="module-toggle">+</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <p>On May 31 and June 1, 1921, a white mob attacked Tulsa's Greenwood District, one of the wealthiest Black communities in the United States, known as "Black Wall Street." In the span of 18 hours, 35 city blocks were burned to the ground. 1,256 homes were destroyed. More than 800 people were admitted to hospitals. Credible estimates of deaths range from 100 to 300, though mass graves found near Oaklawn Cemetery suggest the number may be higher. The Oklahoma Bureau of Vital Statistics officially recorded 36 dead. About 10,000 Black residents were left homeless. The event was then largely omitted from history books until the late 1990s.</p>
+          <p class="source-note">Sources: <a href="https://www.neh.gov/article/1921-tulsa-massacre" target="_blank">National Endowment for the Humanities</a>; <a href="https://tulsahistory.org/exhibit/1921-tulsa-race-massacre/" target="_blank">Tulsa Historical Society</a>; <a href="https://www.britannica.com/event/Tulsa-race-massacre-of-1921" target="_blank">Encyclopaedia Britannica</a></p>
+
+          <h4>What Actually Happened</h4>
+          <p>City officials selected men, all of them white and some of them active participants in the violence, and deputized them as agents of the city government. Public officials provided firearms and ammunition to these individuals. The Oklahoma National Guard participated in the mass arrests of Black residents, removing them to holding centers at Convention Hall and the Fairgrounds, where some were held for up to eight days. Entering the Greenwood district, people stole, damaged, or destroyed personal property. 1,256 homes were deliberately burned. Not one criminal act committed during the massacre was ever prosecuted by any level of government. The Oklahoma Commission to Study the Tulsa Race Riot of 1921, authorized in 1997 and reporting in 2001, recommended reparations. No legislative action was ever taken.</p>
+
+          <h4>Why It Was Omitted</h4>
+          <p>The Tulsa massacre was not merely overlooked. Police records disappeared. Newspaper accounts were minimal. The state did not formally acknowledge the events until 2001. This was a sustained institutional effort to erase evidence of state-sanctioned racial violence from the historical record, not an accidental omission.</p>
+
+          <h4>Key Topics in This Module</h4>
+          <ul class="lesson-list">
+            <li>Greenwood's history and why it became the wealthiest Black community in the country</li>
+            <li>The Dick Rowland incident and the Tulsa Tribune's inflammatory reporting on May 31</li>
+            <li>The role of city officials in deputizing white mob members and providing them weapons</li>
+            <li>National Guard actions: mass arrest of Black residents while white attackers went free</li>
+            <li>The 75-year suppression of this history and the 2001 Oklahoma Commission findings</li>
+            <li>The ongoing search for mass graves and the failure to pay reparations to survivors</li>
+          </ul>
+
+          <div class="quiz-block">
+            <p class="quiz-label">Module Check</p>
+            <p class="quiz-question">What did the Oklahoma National Guard do during and after the Tulsa Race Massacre that illustrated official complicity in the violence?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">A. They refused to respond to calls for assistance from the Greenwood community</button>
+              <button class="quiz-option" onclick="answerQuiz(this, true, event)">B. They arrested thousands of Black residents and held them in internment camps while the white mob faced no prosecution</button>
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">C. They destroyed written records of the massacre at the direction of the governor</button>
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">D. They were not deployed until after the violence had already ended</button>
+            </div>
+            <div class="quiz-feedback">Correct. According to the Tulsa Historical Society and the 2001 Oklahoma Commission report, the National Guard participated in the mass arrest of approximately 6,000 Black residents, who were held in holding centers for up to eight days. Not one criminal act committed during the massacre was ever prosecuted by any level of government.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- MODULE 06 -->
+    <div class="module" onclick="toggleModule(this, event)">
+      <div class="module-header">
+        <div class="module-num">06</div>
+        <div class="module-info">
+          <p class="module-tag">Georgia and the Present · 2022 to Today</p>
+          <h3 class="module-title">The New Censorship: Georgia's Curriculum Laws and Their Cost</h3>
+        </div>
+        <div class="module-toggle">+</div>
+      </div>
+      <div class="module-body">
+        <div class="module-content">
+          <p>In 2022, Georgia passed three laws that have fundamentally altered history education across the state: the Divisive Concepts Law, the Parents' Bill of Rights, and the Harmful to Minors Law. Each restricts in different ways what teachers can teach and what students can learn about race, identity, and systemic injustice. This final module brings the historical pattern documented in the previous five modules into the present day.</p>
+
+          <h4>What the Laws Actually Say</h4>
+          <p>The Divisive Concepts Law bans instruction on topics framed as creating "division" around race, a deliberately vague standard that allows enforcement through fear as much as formal rule. The Parents' Bill of Rights grants parents the ability to remove books or entire curriculum units. The Harmful to Minors Law enables broad content removal on subjective grounds, language that has been directed increasingly at texts addressing gender, sexuality, or racial injustice in the classroom.</p>
+
+          <h4>What the Original Survey Found</h4>
+          <p>In original research conducted with <strong>103 students at Pope High School in Marietta, Georgia</strong>, 76% reported that censorship laws had significantly or somewhat altered their education. 87% agreed that comprehensive historical literacy was essential for civic participation. And 83% said they wanted a broader curriculum. The students most affected by these laws expressed the clearest desire to learn more, not less.</p>
+
+          <h4>The Historical Pattern</h4>
+          <p>As scholar James Loewen's research demonstrates, students taught a mythologized version of their country's history tend toward disengagement rather than active citizenship. The historical record is consistent: the Ming Dynasty's censorship stifled intellectual inquiry and contributed to stagnation; Nazi Germany's rewriting of history produced a population that absorbed state propaganda as unchallengeable fact. The pattern does not change when the country is the United States.</p>
+
+          <h4>Key Topics in This Module</h4>
+          <ul class="lesson-list">
+            <li>The text and practical implications of Georgia's three 2022 censorship laws</li>
+            <li>Survey findings from 103 Georgia students on curriculum, censorship, and civic identity (Emory Williams, 2024)</li>
+            <li>James Loewen's research on the civic effects of incomplete historical education</li>
+            <li>Historical parallels: Ming Dynasty, Roman Empire, Nazi Germany</li>
+            <li>The gap between what policymakers say these laws protect and what students actually experience</li>
+            <li>What students, teachers, and citizens can do in response</li>
+          </ul>
+
+          <div class="quiz-block">
+            <p class="quiz-label">Module Check</p>
+            <p class="quiz-question">Which of Georgia's three 2022 censorship laws granted parents the ability to have specific books or curriculum units removed from their child's school?</p>
+            <div class="quiz-options">
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">A. The Divisive Concepts Law</button>
+              <button class="quiz-option" onclick="answerQuiz(this, true, event)">B. The Parents' Bill of Rights</button>
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">C. The Harmful to Minors Law</button>
+              <button class="quiz-option" onclick="answerQuiz(this, false, event)">D. The Academic Freedom Protection Act</button>
+            </div>
+            <div class="quiz-feedback">Correct. The Parents' Bill of Rights specifically granted parents veto power over curriculum materials, including the ability to remove entire units or ban specific books from their child's education. The Divisive Concepts Law restricts how certain topics can be framed, while the Harmful to Minors Law enables broader content removal on subjective grounds.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- DATA -->
+<section id="data">
+  <div class="container">
+    <p class="section-label">Primary Research · 103 Students Surveyed · Pope High School, Marietta, GA</p>
+    <h2 class="section-title">The Numbers That<br>Drove This Course</h2>
+    <p class="section-body">This course is grounded in original survey research conducted at Pope High School in Marietta, Georgia. 103 students were surveyed on their historical knowledge, perceptions of curriculum balance, and sense of civic identity. Research by Emory Williams, 2024.</p>
+    <div class="data-cards">
+      <div class="data-card" style="--pct: 87%">
+        <div class="data-pct">87<span>%</span></div>
+        <p class="data-desc">of 103 students agreed that a broad understanding of history is essential for civic participation in a democracy.</p>
+        <div class="data-bar-wrapper"><div class="data-bar"></div></div>
+      </div>
+      <div class="data-card" style="--pct: 76%">
+        <div class="data-pct">76<span>%</span></div>
+        <p class="data-desc">believe Georgia's censorship laws, or cultural pressures like them, have significantly or somewhat altered what they are taught in school.</p>
+        <div class="data-bar-wrapper"><div class="data-bar"></div></div>
+      </div>
+      <div class="data-card" style="--pct: 83%">
+        <div class="data-pct">83<span>%</span></div>
+        <p class="data-desc">said that exposure to lesser-known historical events would deepen their understanding of the United States' complex global role and challenge their existing assumptions.</p>
+        <div class="data-bar-wrapper"><div class="data-bar"></div></div>
+      </div>
+    </div>
+    <div class="data-cards" style="margin-top: -1px; border-top: none;">
+      <div class="data-card" style="--pct: 53%">
+        <div class="data-pct">53<span>%</span></div>
+        <p class="data-desc">reported that learning about lesser-known historical events increased their civic awareness and made them more critical of government policy.</p>
+        <div class="data-bar-wrapper"><div class="data-bar"></div></div>
+      </div>
+      <div class="data-card" style="--pct: 28%">
+        <div class="data-pct">28<span>%</span></div>
+        <p class="data-desc">said they had never been exposed to lesser-known or controversial historical events in their formal education at all.</p>
+        <div class="data-bar-wrapper"><div class="data-bar"></div></div>
+      </div>
+      <div class="data-card" style="--pct: 21%">
+        <div class="data-pct">21<span>%</span></div>
+        <p class="data-desc">had been taught about the U.S.-backed overthrow of Chilean President Salvador Allende, making it the least-taught event in the entire survey (22 of 103 students).</p>
+        <div class="data-bar-wrapper"><div class="data-bar"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- EVENTS -->
+<section id="events">
+  <div class="container">
+    <p class="section-label">Quick Reference</p>
+    <h2 class="section-title">Four Events.<br>Zero Excuses for Forgetting.</h2>
+    <p class="section-body">A brief reference guide to the key foreign policy interventions examined in this course and why each one matters for understanding American democracy today.</p>
+    <div class="events-grid">
+      <div class="event-card">
+        <p class="event-year">1899 – 1902</p>
+        <h3 class="event-name">The Philippine-American War</h3>
+        <p class="event-desc">After acquiring the Philippines from Spain for $20 million, the U.S. waged a brutal colonial war against Filipino independence fighters. As many as 200,000 Filipino civilians died from violence, famine, and disease. Taught in only 46 of 103 surveyed classrooms.</p>
+        <div class="event-why">
+          <strong>Why It Was Omitted</strong>
+          It directly contradicts the narrative of America as a liberating, anti-colonial force — a founding myth of American foreign policy identity.
+        </div>
+      </div>
+      <div class="event-card">
+        <p class="event-year">1915 – 1934</p>
+        <h3 class="event-name">The U.S. Occupation of Haiti</h3>
+        <p class="event-desc">Nineteen years of U.S. military rule over the world's first Black republic. The occupation dismantled democratic institutions, imposed forced labor under the corvée system, and rewrote the Haitian constitution. Taught in only 50 of 103 surveyed classrooms.</p>
+        <div class="event-why">
+          <strong>Why It Was Omitted</strong>
+          It exposes the racial logic of American imperialism and raises uncomfortable questions about who American democracy was designed to protect.
+        </div>
+      </div>
+      <div class="event-card">
+        <p class="event-year">1954</p>
+        <h3 class="event-name">CIA Coup in Guatemala</h3>
+        <p class="event-desc">Operation PBSUCCESS overthrew Guatemala's democratically elected president at the behest of the United Fruit Company. Decades of military dictatorship and genocide followed. Taught in only 44 of 103 surveyed classrooms.</p>
+        <div class="event-why">
+          <strong>Why It Was Omitted</strong>
+          It reveals that Cold War foreign policy frequently prioritized corporate interests over democracy, undercutting the ideological justification for the entire era.
+        </div>
+      </div>
+      <div class="event-card">
+        <p class="event-year">1973</p>
+        <h3 class="event-name">The Overthrow of Allende in Chile</h3>
+        <p class="event-desc">The Nixon administration backed a military coup against Chile's elected socialist president, ending 46 years of democratic rule. Pinochet's dictatorship tortured and disappeared thousands. The least-taught event in the survey: only 22 of 103 students encountered it.</p>
+        <div class="event-why">
+          <strong>Why It Was Omitted</strong>
+          It is among the most direct examples of the U.S. deliberately dismantling a democracy. There is no version of this story that does not challenge the narrative America tells about itself.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- RESEARCH TEASER -->
+<section id="research-teaser">
+  <div class="container">
+    <div class="teaser-layout">
+      <div class="teaser-text">
+        <p class="section-label">The Full Research</p>
+        <h2 class="section-title" style="margin-bottom: 32px;">Read the Paper<br>This Course Is Built On</h2>
+        <p class="teaser-pull">"Censorship is not simply ideological. It is also economic, cultural, and deeply political. And history shows us what happens to societies that choose it."</p>
+        <p>This course grew out of original academic research examining how Georgia's 2022 curriculum laws are affecting students' understanding of national identity and civic responsibility. The full paper includes survey methodology, literature review, data analysis, discussion, and conclusion.</p>
+        <p>Scholars cited include James Loewen, Dana Goldstein, Jonathan Zimmerman, John Higham, Madalyn Minnick, Bethany Moreton, Antoon De Baets, and Carlin Borsheim-Black. Survey data drawn from 103 students at Pope High School, Marietta, Georgia.</p>
+        <a href="research-paper.pdf" class="pdf-download" download="Emory_Williams_Educational_Censorship_Research.pdf">
+          <span>↓</span> Download the Full Research Paper (PDF)
+        </a>
+      </div>
+      <div class="teaser-aside">
+        <p class="teaser-aside-label">Key Scholars Cited</p>
+        <h3 class="teaser-aside-title">The Academic Foundation</h3>
+        <p>This course draws on eight major works in history education, curriculum studies, and civic identity research. Each shaped the research questions and findings.</p>
+        <ul class="scholar-list">
+          <li>James W. Loewen — Lies My Teacher Told Me</li>
+          <li>Madalyn Minnick — Not Just a Textbook</li>
+          <li>John Higham — The Cult of the American Consensus</li>
+          <li>Dana Goldstein — The Teacher Wars</li>
+          <li>Jonathan Zimmerman — Whose America?</li>
+          <li>Bethany Moreton — To Serve God and Wal-Mart</li>
+          <li>Carlin Borsheim-Black — Letting Go of Literary Whiteness</li>
+          <li>Antoon De Baets — Censorship of Historical Thought</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- WORKS CITED -->
+<section id="works-cited">
+  <div class="container">
+    <p class="section-label">Works Cited</p>
+    <h2 class="section-title">Sources &amp; Verification</h2>
+    <p class="section-body">All factual claims in this course are substantiated by primary sources or peer-reviewed scholarship. Citations are formatted in MLA 9th edition. Sources are organized by module for ease of fact-checking.</p>
+
+    <div class="works-cited-grid">
+
+      <div class="citation-section">
+        <p class="citation-section-title">Modules 1 &amp; 2 — Philippine-American War · U.S. Occupation of Haiti</p>
+        <ul class="citation-list">
+          <li>U.S. Department of State, Office of the Historian. "The Philippine-American War, 1899–1902." <em>Milestones in the History of U.S. Foreign Relations</em>, <a href="https://history.state.gov/milestones/1899-1913/war" target="_blank">history.state.gov/milestones/1899-1913/war</a>.</li>
+          <li>U.S. Department of State, Office of the Historian. "The Spanish-American War, 1898." <em>Milestones in the History of U.S. Foreign Relations</em>, <a href="https://history.state.gov/milestones/1866-1898/spanish-american-war" target="_blank">history.state.gov/milestones/1866-1898/spanish-american-war</a>.</li>
+          <li>U.S. Department of State, Office of the Historian. "U.S. Invasion and Occupation of Haiti, 1915–34." <em>Milestones in the History of U.S. Foreign Relations</em>, <a href="https://history.state.gov/milestones/1914-1920/haiti" target="_blank">history.state.gov/milestones/1914-1920/haiti</a>.</li>
+          <li>U.S. Department of State, Office of the Historian. "Haiti." <em>Countries — Office of the Historian</em>, <a href="https://history.state.gov/countries/haiti" target="_blank">history.state.gov/countries/haiti</a>.</li>
+        </ul>
+      </div>
+
+      <div class="citation-section">
+        <p class="citation-section-title">Modules 3 &amp; 4 — CIA Guatemala Coup · Chile and Allende</p>
+        <ul class="citation-list">
+          <li>U.S. Department of State, Office of the Historian. <em>Foreign Relations of the United States, 1952–1954, Guatemala</em>. <a href="https://history.state.gov/historicaldocuments/frus1952-54Guat" target="_blank">history.state.gov/historicaldocuments/frus1952-54Guat</a>.</li>
+          <li>U.S. Department of State, Office of the Historian. "Guatemala." <em>Countries — Office of the Historian</em>, <a href="https://history.state.gov/countries/guatemala" target="_blank">history.state.gov/countries/guatemala</a>.</li>
+          <li>U.S. Department of State, Office of the Historian. "The Allende Years and the Pinochet Coup, 1969–1973." <em>Milestones in the History of U.S. Foreign Relations</em>, <a href="https://history.state.gov/milestones/1969-1976/allende" target="_blank">history.state.gov/milestones/1969-1976/allende</a>.</li>
+          <li>Guevara, Miguel. "The History and Impact of the United Fruit Company in Costa Rica." <em>Grow Jungles</em>, 6 Dec. 2021, <a href="https://growjungles.com/united-fruit-company-in-costa-rica/" target="_blank">growjungles.com</a>.</li>
+        </ul>
+      </div>
+
+      <div class="citation-section">
+        <p class="citation-section-title">Module 5 — Tulsa Race Massacre</p>
+        <ul class="citation-list">
+          <li>"1921 Tulsa Race Massacre." <em>National Endowment for the Humanities</em>, <a href="https://www.neh.gov/article/1921-tulsa-massacre" target="_blank">neh.gov/article/1921-tulsa-massacre</a>.</li>
+          <li>"1921 Tulsa Race Massacre." <em>Tulsa Historical Society and Museum</em>, <a href="https://tulsahistory.org/exhibit/1921-tulsa-race-massacre/" target="_blank">tulsahistory.org</a>.</li>
+          <li>"Tulsa Race Massacre of 1921." <em>Encyclopaedia Britannica</em>, <a href="https://www.britannica.com/event/Tulsa-race-massacre-of-1921" target="_blank">britannica.com</a>.</li>
+          <li>The Editors of History.com. "Tulsa Race Massacre." <em>HISTORY</em>, A&amp;E Television Networks, <a href="https://www.history.com/articles/tulsa-race-massacre" target="_blank">history.com/articles/tulsa-race-massacre</a>.</li>
+          <li>Franklin, John Hope, and Scott Ellsworth. <em>The Tulsa Race Riot: A Scientific, Historical and Legal Analysis</em>. Oklahoma City: Tulsa Race Riot Commission, 2000.</li>
+        </ul>
+      </div>
+
+      <div class="citation-section">
+        <p class="citation-section-title">Module 6 &amp; Course Literature Review</p>
+        <ul class="citation-list">
+          <li>Loewen, James W. <em>Lies My Teacher Told Me: Everything Your American History Textbook Got Wrong</em>. The New Press, 1995.</li>
+          <li>Minnick, Madalyn. "Not Just a Textbook: The Impact of History Education in the United States." <em>The Organization for World Peace</em>, 26 Nov. 2021, <a href="https://theowp.org/reports/not-just-a-textbook-the-impact-of-history-education-in-the-united-states/" target="_blank">theowp.org</a>.</li>
+          <li>Higham, John. "The Cult of the 'American Consensus': Homogenizing Our History." <em>Commentary Magazine</em>, 9 Nov. 2015, <a href="https://www.commentary.org/articles/john-higham/the-cult-of-the-american-consensushomogenizing-our-history/" target="_blank">commentary.org</a>.</li>
+          <li>Goldstein, Dana. <em>The Teacher Wars: A History of America's Most Embattled Profession</em>. Doubleday, 2014.</li>
+          <li>Zimmerman, Jonathan. <em>Whose America? Culture Wars in the Public Schools</em>. Harvard University Press, 2002.</li>
+          <li>Moreton, Bethany. <em>To Serve God and Wal-Mart: The Making of Christian Free Enterprise</em>. Harvard University Press, 2009.</li>
+          <li>Borsheim-Black, Carlin, and Sophia Tatiana Sarigianides. <em>Letting Go of Literary Whiteness: Antiracist Literature Instruction for White Students</em>. Teachers College Press, 2019.</li>
+          <li>De Baets, Antoon. <em>Censorship of Historical Thought: A World Guide, 1945–2000</em>. Bloomsbury Publishing USA, 2001.</li>
+          <li>Boechat Machado, Julia, and Ruben Zeeman. "Censoring History Education Goes Hand in Hand with Democratic Backsliding." <em>History News Network</em>, 19 Mar. 2023, <a href="https://www.historynewsnetwork.org/article/censoring-history-education-goes-hand-in-hand-with" target="_blank">historynewsnetwork.org</a>.</li>
+          <li>LaFrance, Sam. "Educational Intimidation." <em>PEN America</em>, 9 July 2024, <a href="https://pen.org/report/educational-intimidation/" target="_blank">pen.org</a>.</li>
+          <li>Santayana, George. <em>The Life of Reason, or The Phases of Human Progress</em>. Constable, 1905.</li>
+        </ul>
+      </div>
+
+    </div>
+
+    <p style="margin-top: 32px; font-family: var(--mono); font-size: 12px; color: var(--muted); letter-spacing: 0.05em;">Primary survey data: Williams, Emory. "The Role of Educational Censorship in Georgia Social Studies Curriculum." Original research, Pope High School, Marietta, Georgia, 2024. Survey administered via Microsoft Forms, n=103.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-brand">The <span>Uncensored</span> Record</div>
+        <p class="footer-blurb">An educational initiative by Emory Williams, grounded in original research on the effects of curriculum censorship in Georgia's K-12 school system. Built to fill the gap the textbooks left open.</p>
+      </div>
+      <div>
+        <p class="footer-col-title">Course Modules</p>
+        <ul class="footer-links">
+          <li><a href="#modules">The Philippine-American War</a></li>
+          <li><a href="#modules">U.S. Occupation of Haiti</a></li>
+          <li><a href="#modules">CIA Coup in Guatemala</a></li>
+          <li><a href="#modules">The Fall of Allende</a></li>
+          <li><a href="#modules">The Tulsa Race Massacre</a></li>
+          <li><a href="#modules">Georgia's Censorship Laws</a></li>
+        </ul>
+      </div>
+      <div>
+        <p class="footer-col-title">Research</p>
+        <ul class="footer-links">
+          <li><a href="#journal">Researcher's Journal</a></li>
+          <li><a href="#data">Survey Data (n=103)</a></li>
+          <li><a href="#events">Quick Reference</a></li>
+          <li><a href="#research-teaser">Full Research Paper</a></li>
+          <li><a href="#works-cited">Works Cited</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Research by Emory Williams · Georgia, 2024</span>
+      <span>Education is empowerment. History is ours to reclaim.</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  window.addEventListener('scroll', () => {
+    const doc = document.documentElement;
+    const pct = (doc.scrollTop / (doc.scrollHeight - doc.clientHeight)) * 100;
+    document.getElementById('progress').style.width = pct + '%';
+  });
+
+  function toggleModule(el, evt) {
+    if (evt && evt.target && typeof evt.target.closest === 'function' && evt.target.closest('.quiz-block')) return;
+    const isOpen = el.classList.contains('open');
+    document.querySelectorAll('.module').forEach(m => m.classList.remove('open'));
+    if (!isOpen) el.classList.add('open');
+  }
+
+  function answerQuiz(btn, isCorrect, evt) {
+    if (evt) evt.stopPropagation();
+    const block = btn.closest('.quiz-block');
+    if (block.dataset.answered) return;
+    block.dataset.answered = 'true';
+    const allOptions = block.querySelectorAll('.quiz-option');
+    const feedback = block.querySelector('.quiz-feedback');
+    allOptions.forEach(opt => {
+      opt.disabled = true;
+      if (opt === btn) {
+        opt.classList.add(isCorrect ? 'correct' : 'incorrect');
+      } else {
+        const onclickStr = opt.getAttribute('onclick') || '';
+        if (!isCorrect && onclickStr.includes(', true,')) {
+          opt.classList.add('reveal');
+        }
+      }
+    });
+    feedback.classList.add('show');
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), parseInt(entry.target.dataset.delay) || 0);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.journal-card, .data-card, .event-card').forEach((el, i) => {
+    el.dataset.delay = (i % 3) * 120;
+    observer.observe(el);
+  });
+
+  document.querySelectorAll('.module').forEach((el, i) => {
+    el.dataset.delay = i * 80;
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
